@@ -90,7 +90,7 @@ class CAM(nn.Module):
 
         video = F.normalize(f2_norm, dim=-1)
         audio = F.normalize(f1_norm, dim=-1)
-
+        # Tried with LSTMs also
         #audio = self.audio_extract(audio)
         video = self.video_attn(video, audio)
         #video = self.video_extract(video)
