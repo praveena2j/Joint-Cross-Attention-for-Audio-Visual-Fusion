@@ -91,14 +91,14 @@ class CAM(nn.Module):
         video = F.normalize(f2_norm, dim=-1)
         audio = F.normalize(f1_norm, dim=-1)
 
-        audio = self.audio_extract(audio)
+        #audio = self.audio_extract(audio)
         video = self.video_attn(video, audio)
-        video = self.video_extract(video)
+        #video = self.video_extract(video)
 
         video, audio = self.coattn(video, audio)
 
         audiovisualfeatures = torch.cat((video, audio), -1)
-        audiovisualfeatures = self.Joint(audiovisualfeatures)
+        #audiovisualfeatures = self.Joint(audiovisualfeatures)
         vouts = self.vregressor(audiovisualfeatures) #.transpose(0,1))
         aouts = self.aregressor(audiovisualfeatures) #.transpose(0,1))
         #seq_outs, _ = torch.max(outs,0)
