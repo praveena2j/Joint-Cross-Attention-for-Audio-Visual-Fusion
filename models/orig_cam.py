@@ -22,9 +22,6 @@ class CAM(nn.Module):
         #self.coattn = DCNLayer(opt.video_size, opt.audio_size, opt.num_seq, opt.dropout)
         self.coattn = DCNLayer(512, 512, 1, 0.6)
 
-        self.audio_extract = LSTM(512, 512, 2, 0.1, residual_embeddings=True)
-        self.video_extract = LSTM(512, 512, 2, 0.1, residual_embeddings=True)
-
         #self.encoder1 = nn.Linear(512, 256)
         #self.encoder2 = nn.Linear(512, 256)
         self.video_attn = BottomUpExtract(512, 512)
@@ -33,7 +30,7 @@ class CAM(nn.Module):
                                      nn.Dropout(0.6),
                                  nn.Linear(128, 1))
 
-        self.Joint = LSTM(1024, 512, 2, dropout=0, residual_embeddings=True)
+     
 
         self.aregressor = nn.Sequential(nn.Linear(512, 128),
                                         nn.ReLU(inplace=True),
@@ -90,15 +87,15 @@ class CAM(nn.Module):
 
         video = F.normalize(f2_norm, dim=-1)
         audio = F.normalize(f1_norm, dim=-1)
-        # Tried with LSTMs also
-        #audio = self.audio_extract(audio)
+      
+       
         video = self.video_attn(video, audio)
-        #video = self.video_extract(video)
+        
 
         video, audio = self.coattn(video, audio)
 
         audiovisualfeatures = torch.cat((video, audio), -1)
-        #audiovisualfeatures = self.Joint(audiovisualfeatures)
+  
         vouts = self.vregressor(audiovisualfeatures) #.transpose(0,1))
         aouts = self.aregressor(audiovisualfeatures) #.transpose(0,1))
         #seq_outs, _ = torch.max(outs,0)
