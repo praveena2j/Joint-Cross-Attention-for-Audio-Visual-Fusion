@@ -1,0 +1,85 @@
+{
+    "dataset_rootpath": "../../Datasets/Affwild2/cropped_aligned/",
+    "dataset_wavspath": "../../Datasets/Affwild2/mkvextracted_audio_samples_shift_1_win_32_refined/",
+	"train_params": {
+        "labelpath": "../../Datasets/Affwild2/annotations/preprocessed_all_labeled_images_new/Train_Set/",
+        "flag" : "train",
+        "seq_length" : 512,
+        "subseq_length" : 32,
+        "stride" : 1,
+        "dilation": 4,
+        "loader_params": {
+            "batch_size": 64,
+            "shuffle": false,
+            "num_workers": 4,
+            "pin_memory": false
+        },
+        "input_size": [3,224, 224]
+    },
+
+    "val_params": {
+        "labelpath": "../../Datasets/Affwild2/annotations/preprocessed_all_images_new/Val_Set/",
+        "flag" : "val",
+        "seq_length" : 512,
+        "subseq_length" : 32,
+        "stride" : 1,
+        "dilation": 4,
+        "loader_params": {
+            "batch_size": 64,
+            "shuffle": false,
+            "num_workers": 4,
+            "pin_memory": false
+        },
+        "input_size": [3,224, 224]
+    },
+    "test_params": {
+        "labelpath": "../../Datasets/Affwild2/annotations/Test_Set/",
+        "flag" : "test",
+        "seq_length" : 512,
+        "subseq_length" : 32,
+        "stride" : 1,
+        "dilation": 4,
+        "loader_params": {
+            "batch_size": 64,
+            "shuffle": false,
+            "num_workers": 4,
+            "pin_memory": false
+        },
+        "input_size": [3,224, 224]
+    },
+	"model_params": {
+        "model_name": "Inception",
+        "subject": 16,
+        "savedmodelname": "Inception_FS_SourceLabels_UDA_2LR_ce_cb_new",
+        "start_epoch": 0,
+        "is_train": true,
+        "max_epochs": 50,
+        "lr": 1e-4,
+        "export_path": "savedweights",
+        "checkpoint_path": "",
+        "learning_rate_decay_start": 15,
+        "learning_rate_decay_every": 5,
+        "learning_rate_decay_rate": 0.9,
+        "momentum": 0.9,
+        "weight-decay": 1e-5,
+        "pathtopretrainedmodel": "pretrainedweights",
+        "DA" : 2,
+        "vis_feat" : 0,
+        "MMD" : 0,
+        "domainloss_weight": 1,
+        "predloss_weight": 1,
+        "peakframe":0,
+        "Freeze" : 0
+    },
+
+    "visualization_params": {
+        "name": "PainEstimation"
+    },
+    "Mode": "Training",
+    "printout_freq": 20,
+    "model_update_freq": 1,
+    "ModeofPred" : 1,
+    "learningcurves_name" : "FullSupSource_UDA_2LR_ce_cb_new",
+    "Logfilename" : "FullSource_UDA_2LR_ce_cb_new.log",
+    "SEED" : 0
+}
