@@ -63,7 +63,7 @@ class TwoStreamAuralVisualModel(nn.Module):
         super(TwoStreamAuralVisualModel, self).__init__()
         self.audio_model = AudioModel(pretrained=audio_pretrained)
         self.video_model = VideoModel(num_channels=num_channels)
-        self.fc = self.fc = nn.Sequential(nn.Dropout(0.0),
+        self.fc = nn.Sequential(nn.Dropout(0.0),
                                           nn.Linear(in_features=self.audio_model.resnet.fc._modules['1'].in_features +
                                                                 self.video_model.r2plus1d.fc._modules['1'].in_features,
                                                     out_features=17))
