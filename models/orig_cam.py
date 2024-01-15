@@ -96,7 +96,9 @@ class CAM(nn.Module):
         video, audio = self.coattn(video, audio)
 
         audiovisualfeatures = torch.cat((video, audio), -1)
+        # tried with LSTMs
         audiovisualfeatures = self.Joint(audiovisualfeatures)
+        
         vouts = self.vregressor(audiovisualfeatures) #.transpose(0,1))
         aouts = self.aregressor(audiovisualfeatures) #.transpose(0,1))
         #seq_outs, _ = torch.max(outs,0)
