@@ -25,6 +25,7 @@ class CAM(nn.Module):
         #self.encoder1 = nn.Linear(512, 256)
         #self.encoder2 = nn.Linear(512, 256)
         self.video_attn = BottomUpExtract(512, 512)
+        self.Joint = LSTM(1024, 512, 2, dropout=0, residual_embeddings=True)
         self.vregressor = nn.Sequential(nn.Linear(512, 128),
                                         nn.ReLU(inplace=True),
                                      nn.Dropout(0.6),
@@ -95,7 +96,7 @@ class CAM(nn.Module):
         video, audio = self.coattn(video, audio)
 
         audiovisualfeatures = torch.cat((video, audio), -1)
-  
+        audiovisualfeatures = self.Joint(audiovisualfeatures)
         vouts = self.vregressor(audiovisualfeatures) #.transpose(0,1))
         aouts = self.aregressor(audiovisualfeatures) #.transpose(0,1))
         #seq_outs, _ = torch.max(outs,0)
