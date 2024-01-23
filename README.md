@@ -70,3 +70,5 @@ Please download the following.
 [Return to Table of Content](#Table_of_Content)
   + The results of the proposed model can be reproduced using the trained model. In order to obtain the predictions on the test set using our proposed model, we can use the test.py.
 
+### 👍 Acknowledgments
+Our code is based on [TSAV](https://github.com/kuhnkeF/ABAW2020TNT) and [Recursive-joint-co-attention](https://github.com/tuffr5/Recursive-joint-co-attention)
